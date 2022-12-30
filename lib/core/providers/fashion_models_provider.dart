@@ -100,7 +100,7 @@ enum FashionCategories {
 final selectedCategoryProvider =
     StateProvider<FashionCategories>((ref) => FashionCategories.recommended);
 
-final fashionModels = FutureProvider((ref) async {
+final fashionModelsProvider = FutureProvider((ref) async {
   final FashionCategories category = ref.watch(selectedCategoryProvider);
 
   await Future.delayed(const Duration(seconds: 3));

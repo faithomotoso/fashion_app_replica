@@ -1,4 +1,5 @@
 import 'package:fashion_app_replica/core/providers/fashion_models_provider.dart';
+import 'package:fashion_app_replica/ui/widgets/fashion_models_grid.dart';
 import 'package:fashion_app_replica/utils/colors.dart';
 import 'package:fashion_app_replica/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,10 @@ class _HomePageState extends State<HomePage>
                   controller: categoryTabController,
                   tabs: List<Widget>.from(
                     FashionCategories.values.map(
-                      (e) => Text(e.value),
+                      (e) => Text(
+                        e.value,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   onTap: (index) {
@@ -104,10 +108,11 @@ class _HomePageState extends State<HomePage>
                   unselectedLabelColor: Colors.black,
                   isScrollable: true,
                   indicatorColor: Colors.transparent,
-                  labelPadding: kTabLabelPadding
-                      .add(const EdgeInsets.symmetric(vertical: 14)),
+                  labelPadding: const EdgeInsets.symmetric(vertical: 14)
+                      .copyWith(right: 26),
                 );
-              })
+              }),
+              const Expanded(child: FashionModelsGrid())
             ],
           ),
         ),

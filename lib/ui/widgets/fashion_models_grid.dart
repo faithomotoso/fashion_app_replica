@@ -43,7 +43,22 @@ class FashionModelsGrid extends ConsumerWidget {
             ),
           );
         },
-        error: (err, stack) => const SizedBox(),
+        error: (err, stack) => Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text("Failed to load"),
+                  ElevatedButton(
+                      onPressed: () {
+                        // invalidate / refresh would reload the future if there's an error
+                        // but would not show the loading indicator again, which isn't so good imo
+                        // ref.invalidate(fashionModelsProvider);
+                        ref.refresh(fashionModelsProvider);
+                      },
+                      child: const Text("Retry"))
+                ],
+              ),
+            ),
         loading: () => Center(
               child: CircularProgressIndicator(
                 color: AppColors.purple,

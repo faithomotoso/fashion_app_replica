@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fashion_app_replica/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -104,6 +106,10 @@ final fashionModelsProvider = FutureProvider((ref) async {
   final FashionCategories category = ref.watch(selectedCategoryProvider);
 
   await Future.delayed(const Duration(seconds: 3));
+
+  if (!Random().nextBool()) {
+    throw Exception("Unable to load");
+  }
 
   switch (category) {
     case FashionCategories.newModels:

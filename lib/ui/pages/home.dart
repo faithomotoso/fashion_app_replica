@@ -110,6 +110,11 @@ class _HomePageState extends State<HomePage>
                   indicatorColor: Colors.transparent,
                   labelPadding: const EdgeInsets.symmetric(vertical: 14)
                       .copyWith(right: 26),
+                  splashFactory: NoSplash.splashFactory,
+                  overlayColor: MaterialStateProperty.resolveWith((states) =>
+                      states.contains(MaterialState.pressed)
+                          ? Colors.transparent
+                          : null),
                 );
               }),
               const Expanded(child: FashionModelsGrid())

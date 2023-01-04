@@ -53,7 +53,10 @@ class FashionModelsGrid extends ConsumerWidget {
                         // invalidate / refresh would reload the future if there's an error
                         // but would not show the loading indicator again, which isn't so good imo
                         // ref.invalidate(fashionModelsProvider);
-                        ref.refresh(fashionModelsProvider);
+                        FashionCategories selectedC = ref.watch(selectedCategoryProvider);
+
+                        // This makes the loading indicator to show when refreshed, but not always
+                        ref.refresh(selectedCategoryProvider.notifier).state = selectedC;
                       },
                       child: const Text("Retry"))
                 ],

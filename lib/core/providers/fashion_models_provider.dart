@@ -105,7 +105,7 @@ final selectedCategoryProvider =
 final fashionModelsProvider = FutureProvider((ref) async {
   final FashionCategories category = ref.watch(selectedCategoryProvider);
 
-  await Future.delayed(const Duration(seconds: 3));
+  await Future.delayed(const Duration(seconds: 1));
 
   if (!Random().nextBool()) {
     throw Exception("Unable to load");

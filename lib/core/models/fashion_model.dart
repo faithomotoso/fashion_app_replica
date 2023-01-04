@@ -1,8 +1,10 @@
 // Handle name, image etc of a fashion model
 
 import 'package:fashion_app_replica/core/providers/fashion_models_provider.dart';
+import 'package:flutter/foundation.dart';
 
 class FashionModel {
+  late final String _id;
   late final String _imagePath;
   late final String _name;
   late final String _location;
@@ -10,6 +12,8 @@ class FashionModel {
   late final int _likesCount;
   late final int _minutes;
   late final FashionCategories _category;
+
+  String get id => _id;
 
   String get imagePath => _imagePath;
 
@@ -34,6 +38,7 @@ class FashionModel {
     required int minutes,
     required FashionCategories category,
   }) {
+    this._id = UniqueKey().toString();
     this._imagePath = imagePath;
     this._name = name;
     this._location = location;

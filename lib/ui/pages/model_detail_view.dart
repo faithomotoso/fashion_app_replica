@@ -1,4 +1,7 @@
 import 'package:fashion_app_replica/core/models/fashion_model.dart';
+import 'package:fashion_app_replica/ui/widgets/comment_icon.dart';
+import 'package:fashion_app_replica/ui/widgets/like_icon.dart';
+import 'package:fashion_app_replica/ui/widgets/minutes_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +20,8 @@ class ModelDetailView extends ConsumerStatefulWidget {
 
 class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
   late FashionModel fashionModel;
+  final TransformationController transformationController =
+      TransformationController();
 
   @override
   void initState() {
@@ -34,9 +39,12 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
             tag: fashionModel.id,
             child: InteractiveViewer(
               clipBehavior: Clip.none,
-              minScale: 0.5,
+              transformationController: transformationController,
+              minScale: 0.01,
+              // constrained: false,
               child: Image.asset(
                 fashionModel.imagePath,
+                fit: BoxFit.cover,
                 // fit: BoxFit.cover,
               ),
             ),
@@ -46,6 +54,7 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                   child: Padding(
             padding: const EdgeInsets.all(16).copyWith(top: 0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,6 +72,22 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                           Icons.more_vert_rounded,
                           color: Colors.white,
                         ))
+                  ],
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Column(
+                  children: [
+                    CommentIcon(commentCount: fashionModel.commentCount),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    LikeIcon(likeCount: fashionModel.likesCount),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MinutesIcon(durationInMinutes: fashionModel.minutes),
                   ],
                 )
               ],

@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:fashion_app_replica/core/models/fashion_model.dart';
 import 'package:fashion_app_replica/ui/widgets/comment_icon.dart';
 import 'package:fashion_app_replica/ui/widgets/like_icon.dart';
 import 'package:fashion_app_replica/ui/widgets/minutes_icon.dart';
+import 'package:fashion_app_replica/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,7 +95,48 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                 )
               ],
             ),
-          )))
+          ))),
+          Positioned(
+            bottom: 35,
+            left: 10,
+            right: 10,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(appBorderRadius),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.28),
+                  decoration:
+                      BoxDecoration(color: Colors.white.withOpacity(0.25)),
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        fashionModel.name,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            fashionModel.description,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

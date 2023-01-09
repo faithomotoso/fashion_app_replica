@@ -11,6 +11,7 @@ class FashionModel {
   late final int _commentCount;
   late final int _likesCount;
   late final int _minutes;
+  late final String _description;
   late final FashionCategories _category;
 
   String get id => _id;
@@ -27,6 +28,8 @@ class FashionModel {
 
   int get minutes => _minutes;
 
+  String get description => _description;
+
   FashionCategories get category => _category;
 
   FashionModel({
@@ -37,6 +40,7 @@ class FashionModel {
     required int likesCount,
     required int minutes,
     required FashionCategories category,
+    required String description,
   }) {
     this._id = UniqueKey().toString();
     this._imagePath = imagePath;
@@ -46,5 +50,6 @@ class FashionModel {
     this._likesCount = likesCount;
     this._minutes = minutes;
     this._category = category;
+    this._description = description;
   }
 }

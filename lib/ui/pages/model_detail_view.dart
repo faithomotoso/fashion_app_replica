@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:fashion_app_replica/core/models/fashion_model.dart';
 import 'package:fashion_app_replica/ui/widgets/comment_icon.dart';
+import 'package:fashion_app_replica/ui/widgets/follow_button.dart';
 import 'package:fashion_app_replica/ui/widgets/like_icon.dart';
 import 'package:fashion_app_replica/ui/widgets/minutes_icon.dart';
 import 'package:fashion_app_replica/utils/utils.dart';
@@ -130,7 +131,13 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Align(
+                          alignment: Alignment.centerRight,
+                          child: FollowButton())
                     ],
                   ),
                 ),

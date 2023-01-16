@@ -138,9 +138,9 @@ final fashionModelsProvider = FutureProvider((ref) async {
 
   await Future.delayed(const Duration(seconds: 1));
 
-  if (!Random().nextBool()) {
-    throw Exception("Unable to load");
-  }
+  // if (!Random().nextBool()) {
+  //   throw Exception("Unable to load");
+  // }
 
   switch (category) {
     case FashionCategories.newModels:

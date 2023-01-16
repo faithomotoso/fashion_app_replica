@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fashion_app_replica/core/models/fashion_model.dart';
 import 'package:fashion_app_replica/core/providers/fashion_models_provider.dart';
 import 'package:fashion_app_replica/ui/widgets/fashion_model_grid_item.dart';
@@ -17,7 +19,7 @@ class FashionModelsGrid extends ConsumerWidget {
           FashionModel? outlier;
 
           if (models.length.isOdd) {
-            outlier = modelsForGrid.removeLast();
+            outlier = modelsForGrid.last;
           }
 
           return SingleChildScrollView(
@@ -30,8 +32,9 @@ class FashionModelsGrid extends ConsumerWidget {
                   crossAxisSpacing: 20,
                   shrinkWrap: true,
                   primary: false,
-                  children: List<Widget>.from(
-                      models.map((e) => FashionModelGridItem(fashionModel: e))),
+                  children: List<Widget>.from(models
+                      .where((m) => m != outlier)
+                      .map((e) => FashionModelGridItem(fashionModel: e))),
                 ),
                 if (outlier != null) ...[
                   FashionModelGridItem(
@@ -53,10 +56,12 @@ class FashionModelsGrid extends ConsumerWidget {
                         // invalidate / refresh would reload the future if there's an error
                         // but would not show the loading indicator again, which isn't so good imo
                         // ref.invalidate(fashionModelsProvider);
-                        FashionCategories selectedC = ref.watch(selectedCategoryProvider);
+                        FashionCategories selectedC =
+                            ref.watch(selectedCategoryProvider);
 
                         // This makes the loading indicator to show when refreshed, but not always
-                        ref.refresh(selectedCategoryProvider.notifier).state = selectedC;
+                        ref.refresh(selectedCategoryProvider.notifier).state =
+                            selectedC;
                       },
                       child: const Text("Retry"))
                 ],

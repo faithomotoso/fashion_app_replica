@@ -70,12 +70,16 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                       icon: const Icon(CupertinoIcons.back),
                       color: Colors.white,
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
+                    PopupMenuButton(
+                        itemBuilder: (ctx) {
+                          return const [
+                            PopupMenuItem(child: Text("Nothing to see here"))
+                          ];
+                        },
+                        child: const Icon(
                           Icons.more_vert_rounded,
                           color: Colors.white,
-                        ))
+                        )),
                   ],
                 ),
                 const SizedBox(
@@ -83,7 +87,7 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                 ),
                 Column(
                   children: [
-                    CommentIcon(commentCount: fashionModel.commentCount),
+                    CommentIcon(fashionModel: fashionModel),
                     const SizedBox(
                       height: 20,
                     ),

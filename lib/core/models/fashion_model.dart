@@ -52,4 +52,14 @@ class FashionModel {
     this._category = category;
     this._description = description;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FashionModel && other.id == this.id;
+  }
+
+  @override
+  int get hashCode {
+    return Object.hashAll([id]);
+  }
 }

@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CommentIcon extends StatelessWidget {
-  final int commentCount;
+import '../../core/models/fashion_model.dart';
+import '../pages/comment_section.dart';
 
-  CommentIcon({required this.commentCount});
+class CommentIcon extends StatelessWidget {
+  final FashionModel fashionModel;
+
+  const CommentIcon({required this.fashionModel});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          showCommentSection(context, fashionModel);
+        },
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -20,8 +25,8 @@ class CommentIcon extends StatelessWidget {
             ),
             const SizedBox(height: 4,),
             Text(
-              commentCount.toString(),
-              style: TextStyle(color: Colors.white),
+              fashionModel.commentCount.toString(),
+              style: const TextStyle(color: Colors.white),
             )
           ],
         ));

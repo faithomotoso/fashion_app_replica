@@ -43,11 +43,8 @@ class FashionModelGridItem extends StatelessWidget {
                 shadowColor: AppColors.purple.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(appBorderRadius),
                 child: Container(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height *
-                        (!isOutlier ? 0.3 : 0.2),
-                    minHeight: 150,
-                  ),
+                  height: MediaQuery.of(context).size.height *
+                      (!isOutlier ? 0.3 : 0.2),
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(appBorderRadius),

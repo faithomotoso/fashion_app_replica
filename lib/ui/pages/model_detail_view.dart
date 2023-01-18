@@ -36,6 +36,7 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned.fill(
@@ -91,7 +92,7 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    LikeIcon(likeCount: fashionModel.likesCount),
+                    LikeIcon(fashionModel: fashionModel),
                     const SizedBox(
                       height: 20,
                     ),

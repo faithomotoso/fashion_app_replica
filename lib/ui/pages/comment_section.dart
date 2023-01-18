@@ -33,52 +33,69 @@ class _CommentSectionState extends State<CommentSection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Comments",
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            const Divider(),
-            Expanded(
-              child: Consumer(
-                builder: (ctx, ref, child) {
-                  return ref
-                      .watch(
-                          commentsRepository(widget.fashionModel.commentCount))
-                      .when(
-                          data: (data) {
-                            if (data.isEmpty) {
-                              return const Center(
-                                child: Text("No comments"),
-                              );
-                            }
-
-                            return ListView.separated(
-                              itemCount: data.length,
-                              separatorBuilder: (ctx, index) => const SizedBox(
-                                height: 20,
-                              ),
-                              itemBuilder: (ctx, index) =>
-                                  CommentWidget(comment: data.elementAt(index)),
-                            );
-                          },
-                          error: (error, stack) {
-                            log("Error loading comments: $error -> $stack");
-                            return const Center(
-                              child: Text("Unable to load comments"),
-                            );
-                          },
-                          loading: () => const Center(
-                                child: CircularProgressIndicator(),
-                              ));
-                },
+      body: SafeArea(
+        top: false,
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Comments",
+                style: Theme.of(context).textTheme.headline5,
               ),
-            ),
-          ],
+              const Divider(),
+              Expanded(
+                child: Consumer(
+                  builder: (ctx, ref, child) {
+                    return ref
+                        .watch(
+                            commentsRepository(widget.fashionModel.commentCount))
+                        .when(
+                            data: (data) {
+                              if (data.isEmpty) {
+                                return const Center(
+                                  child: Text("No comments"),
+                                );
+                              }
+
+                              return ListView.separated(
+                                itemCount: data.length,
+                                separatorBuilder: (ctx, index) => const SizedBox(
+                                  height: 20,
+                                ),
+                                itemBuilder: (ctx, index) =>
+                                    CommentWidget(comment: data.elementAt(index)),
+                              );
+                            },
+                            error: (error, stack) {
+                              log("Error loading comments: $error -> $stack");
+                              return const Center(
+                                child: Text("Unable to load comments"),
+                              );
+                            },
+                            loading: () => const Center(
+                                  child: CircularProgressIndicator(),
+                                ));
+                  },
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Enter a comment"
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.send_outlined))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

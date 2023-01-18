@@ -1,18 +1,32 @@
+import 'package:fashion_app_replica/core/providers/fashion_models_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LikeIcon extends StatelessWidget {
-  final int likeCount;
+import '../../core/models/fashion_model.dart';
 
-  LikeIcon({required this.likeCount});
+class LikeIcon extends ConsumerWidget {
+  FashionModel fashionModel;
+
+  LikeIcon({required this.fashionModel});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    fashionModel = ref
+        .watch(fashionModelsListProvider)
+        .firstWhere((model) => model == fashionModel);
+
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        ref
+            .read(fashionModelsListProvider.notifier)
+            .onLikeAction(fashionModel, !fashionModel.isLikedByUser);
+      },
       child: Column(
         children: [
-          const Icon(
-            Icons.favorite_border_rounded,
+          Icon(
+            fashionModel.isLikedByUser
+                ? Icons.favorite_rounded
+                : Icons.favorite_border_rounded,
             color: Colors.white,
             size: 26.0,
           ),
@@ -20,7 +34,7 @@ class LikeIcon extends StatelessWidget {
             height: 4,
           ),
           Text(
-            likeCount.toString(),
+            fashionModel.likesCount.toString(),
             style: TextStyle(color: Colors.white),
           )
         ],

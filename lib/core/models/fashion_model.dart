@@ -9,10 +9,13 @@ class FashionModel {
   late final String _name;
   late final String _location;
   late final int _commentCount;
-  late final int _likesCount;
+  late int _likesCount;
   late final int _minutes;
   late final String _description;
   late final FashionCategories _category;
+
+  // Ideally this would be final as a new value would be gotten from the api when a like action occurs
+  late bool _isLikedByUser;
 
   String get id => _id;
 
@@ -32,6 +35,8 @@ class FashionModel {
 
   FashionCategories get category => _category;
 
+  bool get isLikedByUser => _isLikedByUser;
+
   FashionModel({
     required String imagePath,
     required String name,
@@ -41,6 +46,7 @@ class FashionModel {
     required int minutes,
     required FashionCategories category,
     required String description,
+    bool isLikedByUser = false,
   }) {
     this._id = UniqueKey().toString();
     this._imagePath = imagePath;
@@ -51,6 +57,7 @@ class FashionModel {
     this._minutes = minutes;
     this._category = category;
     this._description = description;
+    this._isLikedByUser = isLikedByUser;
   }
 
   @override
@@ -61,5 +68,15 @@ class FashionModel {
   @override
   int get hashCode {
     return Object.hashAll([id]);
+  }
+
+  // Make changes to the like count if the current user likes/unlikes
+  void modifyLikeCount(bool isLiked) {
+    this._isLikedByUser = isLiked;
+    if (isLiked) {
+      this._likesCount++;
+    } else {
+      this._likesCount--;
+    }
   }
 }

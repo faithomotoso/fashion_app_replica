@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:fashion_app_replica/core/models/fashion_model.dart';
 import 'package:fashion_app_replica/ui/widgets/comment_icon.dart';
+import 'package:fashion_app_replica/ui/widgets/fashion_model_picture_viewer.dart';
 import 'package:fashion_app_replica/ui/widgets/follow_button.dart';
 import 'package:fashion_app_replica/ui/widgets/like_icon.dart';
 import 'package:fashion_app_replica/ui/widgets/minutes_icon.dart';
@@ -40,19 +41,8 @@ class _ModelDetailViewState extends ConsumerState<ModelDetailView> {
       body: Stack(
         children: [
           Positioned.fill(
-              child: Hero(
-            tag: fashionModel.id,
-            child: InteractiveViewer(
-              clipBehavior: Clip.none,
-              transformationController: transformationController,
-              minScale: 0.01,
-              // constrained: false,
-              child: Image.asset(
-                fashionModel.imagePath,
-                fit: BoxFit.cover,
-                // fit: BoxFit.cover,
-              ),
-            ),
+              child: FashionModelPictureViewer(
+            fashionModel: fashionModel,
           )),
           Positioned.fill(
               child: SafeArea(

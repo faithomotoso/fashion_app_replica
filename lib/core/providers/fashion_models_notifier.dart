@@ -131,6 +131,8 @@ class FashionModelsNotifier extends Notifier<List<FashionModel>> {
   }
 
   void onLikeAction(FashionModel fashionModel, bool like) {
+    // Prevent multiple faux likes
+    if (fashionModel.isLikedByUser == like) return;
     state = [
       for (FashionModel model in state)
         if (model == fashionModel)

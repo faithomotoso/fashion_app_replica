@@ -1,5 +1,7 @@
 import 'package:fashion_app_replica/core/providers/fashion_models_provider.dart';
+import 'package:fashion_app_replica/core/providers/search_icon_mode_provider.dart';
 import 'package:fashion_app_replica/ui/widgets/fashion_models_grid.dart';
+import 'package:fashion_app_replica/ui/widgets/search_bar.dart';
 import 'package:fashion_app_replica/utils/colors.dart';
 import 'package:fashion_app_replica/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -42,23 +44,39 @@ class _HomePageState extends State<HomePage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const ImageIcon(
-                      AssetImage("$iconBasePath/menu-bar.png"),
-                    ),
+              Consumer(builder: (ctx, ref, child) {
+                SearchMode mode = ref.watch(searchModeProvider);
+
+                return AnimatedCrossFade(
+                  firstChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const ImageIcon(
+                          AssetImage("$iconBasePath/menu-bar.png"),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          ref
+                              .read(searchModeProvider.notifier)
+                              .changeMode(SearchMode.show);
+                        },
+                        icon: const ImageIcon(
+                          AssetImage("$iconBasePath/searching.png"),
+                        ),
+                      )
+                    ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const ImageIcon(
-                      AssetImage("$iconBasePath/searching.png"),
-                    ),
-                  )
-                ],
-              ),
+                  secondChild: SearchBar(),
+                  crossFadeState: mode == SearchMode.show
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 200),
+                  secondCurve: Curves.easeInCubic,
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
